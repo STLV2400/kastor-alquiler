@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Manual de uso · Kastor Alquiler</title>
+<meta name="description" content="Manual paso a paso del sistema Kastor Alquiler: reglas de protección, alquiler, devolución, cobranza y respaldo." />
+<meta name="theme-color" content="#0A0A0A" />
+<link rel="icon" href="img/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --rojo: #E60F16; --rojo-osc: #B80A10; --rojo-claro: #FFECEC;
+    --negro: #0A0A0A; --grafito: #262626; --acero: #6B6B6B;
+    --amarillo: #FFD200; --amarillo-claro: #FFF7CC;
+    --concreto: #F3F2EF; --concreto-2: #E5E3DE;
+    --verde: #0F9D58; --verde-claro: #E7F6EE;
+    --radio: 18px;
+    --sombra: 0 10px 30px -18px rgba(10,10,10,.35);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--concreto); color: var(--negro);
+    font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; }
+  a { color: var(--rojo); font-weight: 700; }
+  .cinta { height: 10px; background: repeating-linear-gradient(-45deg, var(--amarillo) 0 14px, var(--negro) 14px 28px); }
+  .cinta-fina { height: 6px; }
+
+  /* Encabezado */
+  .top { background: #fff; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; }
+  .top img { height: 40px; width: auto; display: block; }
+  .top .tag { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--acero); text-align: right; }
+  .hero { background: var(--negro); color: #fff; padding: 36px 18px 40px; position: relative; overflow: hidden; }
+  .hero::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: var(--rojo); opacity: .18; }
+  .hero .kick { color: var(--amarillo); }
+  .hero h1 { font-size: clamp(30px, 8vw, 54px); line-height: 1; font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; margin: 10px 0 14px; }
+  .hero h1 span { color: var(--rojo); }
+  .hero p { max-width: 640px; color: rgba(255,255,255,.8); margin: 0; font-weight: 500; }
+  .hero .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 800; background: rgba(255,255,255,.1); color: #fff; }
+  .pill.am { background: var(--amarillo); color: var(--negro); }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 14px 60px; }
+  .kick { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--rojo); }
+  .kick::before { content: ""; width: 22px; height: 4px; background: currentColor; transform: skewX(-35deg); }
+
+  /* Índice */
+  .toc { margin-top: -22px; position: relative; z-index: 2; }
+  .toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 6px; counter-reset: t; }
+  .toc li a { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 12px; text-decoration: none; color: var(--negro); font-weight: 700; font-size: 14px; }
+  .toc li a:hover { background: var(--concreto); }
+  .toc li a::before { counter-increment: t; content: counter(t); flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--negro); color: var(--amarillo); font-size: 13px; font-weight: 900; }
+  @media (min-width: 640px) { .toc ol { grid-template-columns: 1fr 1fr; } }
+
+  /* Tarjetas y secciones */
+  .card { background: #fff; border-radius: var(--radio); box-shadow: var(--sombra); border: 1px solid rgba(10,10,10,.05); padding: 20px 18px; margin-top: 18px; }
+  section.cap { margin-top: 34px; }
+  .cap-head { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .num { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--rojo); color: #fff; font-weight: 900; font-size: 20px; box-shadow: 0 10px 20px -10px rgba(230,15,22,.8); }
+  h2 { font-size: clamp(21px, 5vw, 28px); line-height: 1.1; font-weight: 900; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
+  h3 { font-size: 17px; font-weight: 800; margin: 22px 0 6px; }
+  .card > h3:first-child { margin-top: 0; }
+  p { margin: 8px 0; }
+  ul, ol { padding-left: 22px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  strong { font-weight: 800; }
+  .lead { font-size: 17px; font-weight: 500; color: var(--grafito); }
+  .muted { color: var(--acero); font-size: 14px; }
+
+  /* Avisos */
+  .box { border-radius: 14px; padding: 14px 16px; margin: 14px 0; border-left: 6px solid; }
+  .box p:first-child { margin-top: 0; } .box p:last-child { margin-bottom: 0; }
+  .ok { background: var(--verde-claro); border-color: var(--verde); }
+  .warn { background: var(--amarillo-claro); border-color: var(--amarillo); }
+  .stop { background: var(--rojo-claro); border-color: var(--rojo); }
+  .tip { background: var(--concreto); border-color: var(--negro); }
+  .box .t { font-weight: 900; text-transform: uppercase; font-size: 13px; letter-spacing: .06em; display: block; margin-bottom: 4px; }
+
+  /* Tablas */
+  .tabla { width: 100%; overflow-x: auto; margin: 12px 0; border-radius: 14px; border: 1px solid var(--concreto-2); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 520px; }
+  th { background: var(--negro); color: #fff; text-align: left; font-weight: 800; padding: 10px 12px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  td { padding: 10px 12px; border-top: 1px solid var(--concreto-2); vertical-align: top; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  td.r, th.r { text-align: right; white-space: nowrap; }
+  tr.total td { background: var(--negro) !important; color: #fff; font-weight: 900; }
+  tr.sub td { font-weight: 800; background: var(--concreto) !important; }
+
+  .chip { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+  .c-a { background: #D1FAE5; color: #065F46; } .c-b { background: #FEF3C7; color: #78350F; } .c-c { background: #FEE2E2; color: #991B1B; }
+  .c-n { background: #E0F2FE; color: #075985; } .c-g { background: var(--concreto-2); color: var(--grafito); }
+
+  /* Pasos */
+  .pasos { list-style: none; padding: 0; counter-reset: p; }
+  .pasos > li { position: relative; padding: 2px 0 14px 50px; margin: 0; }
+  .pasos > li::before { counter-increment: p; content: counter(p); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--amarillo); color: var(--negro); display: grid; place-items: center; font-weight: 900; }
+  .pasos > li::after { content: ""; position: absolute; left: 16px; top: 38px; bottom: 2px; width: 2px; background: var(--concreto-2); }
+  .pasos > li:last-child::after { display: none; }
+  .pasos > li > strong:first-child { display: block; font-size: 16px; }
+
+  /* Grillas */
+  .grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: 1fr 1fr 1fr; } }
+  .mini { background: var(--concreto); border-radius: 14px; padding: 14px; }
+  .mini h4 { margin: 0 0 4px; font-size: 15px; font-weight: 900; }
+  .mini p { margin: 0; font-size: 14px; }
+  .ico { font-size: 26px; line-height: 1; display: block; margin-bottom: 6px; }
+
+  /* Credenciales */
+  .cred { background: var(--negro); color: #fff; border-radius: 14px; padding: 14px 16px; }
+  .cred .rol { color: var(--amarillo); font-size: 11px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+  .cred code { display: block; font-family: ui-monospace, Consolas, monospace; font-size: 15px; margin-top: 4px; word-break: break-all; }
+  code { font-family: ui-monospace, Consolas, monospace; background: var(--concreto); padding: 1px 6px; border-radius: 6px; font-size: .92em; }
+  .url { display: block; text-align: center; background: var(--rojo); color: #fff; text-decoration: none; padding: 14px; border-radius: 999px; font-weight: 900; margin: 14px 0; word-break: break-all; }
+
+  /* Línea de tiempo */
+  .timeline { list-style: none; padding: 0; margin: 14px 0; }
+  .timeline li { display: grid; grid-template-columns: 74px 1fr; gap: 12px; margin: 0 0 10px; }
+  .timeline .d { border-radius: 12px; text-align: center; font-weight: 900; padding: 8px 4px; font-size: 13px; line-height: 1.2; }
+  .timeline .d b { display: block; font-size: 20px; }
+  .timeline .x { background: var(--concreto); border-radius: 12px; padding: 10px 12px; }
+  .timeline .x strong { display: block; }
+  .d0 { background: var(--verde-claro); color: var(--verde); }
+  .d1 { background: var(--amarillo); color: var(--negro); }
+  .d2 { background: #FDBA74; color: #7C2D12; }
+  .d3 { background: var(--rojo); color: #fff; }
+  .d4 { background: var(--negro); color: var(--amarillo); }
+
+  .semaforo { display: grid; gap: 10px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .semaforo { grid-template-columns: repeat(3, 1fr); } }
+  .luz { border-radius: 14px; padding: 14px; color: #fff; }
+  .luz .dot { width: 18px; height: 18px; border-radius: 50%; background: #fff; display: inline-block; vertical-align: -3px; margin-right: 6px; box-shadow: 0 0 0 4px rgba(255,255,255,.3); }
+  .l-v { background: #16A34A; } .l-a { background: #EAB308; color: var(--negro); } .l-a .dot { background: var(--negro); } .l-r { background: var(--rojo); }
+
+  .check { list-style: none; padding: 0; }
+  .check li { padding-left: 32px; position: relative; margin: 8px 0; }
+  .check li::before { content: ""; position: absolute; left: 0; top: 2px; width: 20px; height: 20px; border: 2.5px solid var(--negro); border-radius: 6px; background: #fff; }
+
+  .wa { background: #DCF8C6; border-radius: 14px 14px 14px 4px; padding: 10px 14px; font-size: 14px; max-width: 520px; margin: 8px 0; box-shadow: 0 2px 0 rgba(0,0,0,.06); }
+
+  footer { background: var(--negro); color: rgba(255,255,255,.7); text-align: center; padding: 26px 18px; font-size: 13px; }
+  footer strong { color: #fff; }
+  .print-btn { position: fixed; right: 16px; bottom: 16px; z-index: 10; border: 0; background: var(--rojo); color: #fff; font: inherit; font-weight: 900; padding: 14px 18px; border-radius: 999px; box-shadow: 0 12px 26px -10px rgba(230,15,22,.9); cursor: pointer; }
+
+  @media (min-width: 760px) {
+    .card { padding: 26px 28px; }
+    .top { padding: 16px 28px; } .hero { padding: 54px 28px 56px; }
+  }
+
+  @media print {
+    @page { size: A4; margin: 13mm 12mm; }
+    body { background: #fff; font-size: 11.5pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .print-btn, .no-print { display: none !important; }
+    .wrap { max-width: none; padding: 0; }
+    .hero { padding: 26px 20px; }
+    .toc { margin-top: 12px; }
+    .card { box-shadow: none; border: 1px solid #ddd; break-inside: auto; }
+    section.cap { break-before: page; margin-top: 0; }
+    section.cap.sin-salto { break-before: auto; margin-top: 24px; }
+    .box, .mini, .timeline li, tr, .cred, .luz, .pasos > li { break-inside: avoid; }
+    h2, h3, .cap-head { break-after: avoid; }
+    .tabla { overflow: visible; border: 1px solid #ccc; }
+    table { min-width: 0; font-size: 10pt; }
+    a { color: var(--negro); text-decoration: none; }
+    footer { background: #fff; color: #555; border-top: 3px solid var(--negro); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top">
+    <img src="img/logo-horizontal.png" alt="Kastor" />
+    <div class="tag">Manual del sistema<br />de alquiler</div>
+  </div>
+  <div class="cinta"></div>
+  <div class="hero">
+    <span class="kick">Manual de uso · versión 1</span>
+    <h1>Alquila rápido.<br /><span>Alquila blindado.</span></h1>
+    <p>Esta guía explica, paso a paso y sin palabras técnicas, cómo usar <strong>Kastor Alquiler</strong> para alquilar tus equipos en minutos y, al mismo tiempo, protegerte de los robos y estafas más comunes en el Perú.</p>
+    <div class="pills">
+      <span class="pill am">📱 Hecho para el celular</span>
+      <span class="pill">🔒 Candado antiestafa</span>
+      <span class="pill">🧾 Contrato con firma digital</span>
+      <span class="pill">🖨️ Imprimible en PDF</span>
+    </div>
+  </div>
+  <div class="cinta cinta-fina"></div>
+</header>
+
+<main class="wrap">
+
+  <nav class="card toc" aria-label="Índice">
+    <span class="kick">Contenido</span>
+    <ol>
+      <li><a href="#s1">Qué es y cómo entrar</a></li>
+      <li><a href="#s2">Por qué ya no retener el DNI</a></li>
+      <li><a href="#s3">Las reglas de protección</a></li>
+      <li><a href="#s4">Registrar un cliente (≤ 3 min)</a></li>
+      <li><a href="#s5">Alquilar paso a paso</a></li>
+      <li><a href="#s6">Mientras está en la calle</a></li>
+      <li><a href="#s7">Devolución y depósito</a></li>
+      <li><a href="#s8">Si no devuelve el equipo</a></li>
+      <li><a href="#s9">Las 7 estafas más comunes</a></li>
+      <li><a href="#s10">Cómo confirmar un pago de verdad</a></li>
+      <li><a href="#s11">GPS: tipos y costos</a></li>
+      <li><a href="#s12">Inventario, QR y marcas ocultas</a></li>
+      <li><a href="#s13">Tu inversionista</a></li>
+      <li><a href="#s14">Respaldo de datos</a></li>
+      <li><a href="#s15">Checklist diario y semanal</a></li>
+      <li><a href="#s16">Aviso legal</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section class="cap sin-salto" id="s1">
+    <div class="card">
+      <div class="cap-head"><div class="num">1</div><h2>Qué es y cómo entrar</h2></div>
+      <p class="lead">Kastor Alquiler es tu <strong>cuaderno de alquileres, tu caja y tu guardaespaldas</strong>, todo en el celular.</p>
+      <p>Antes anotabas en un cuaderno y te quedabas con el DNI del cliente. Ahora el sistema te guía en cada alquiler: te dice qué falta, no te deja entregar si algo está mal, arma el contrato, te avisa quién está atrasado y te ayuda a cobrar.</p>
+
+      <h3>🌐 La dirección de la app</h3>
+      <a class="url" href="https://stlv2400.github.io/kastor-alquiler/">https://stlv2400.github.io/kastor-alquiler/</a>
+
+      <h3>🔑 Usuarios</h3>
+      <div class="grid g2">
+        <div class="cred">
+          <div class="rol">Administrador (tú)</div>
+          <code>admin@kastor.pe</code>
+          <code>Kastor.Peru26</code>
+          <p class="muted" style="color:rgba(255,255,255,.65);margin-bottom:0">Puede hacer todo: alquilar, cobrar, cambiar reglas.</p>
+        </div>
+        <div class="cred">
+          <div class="rol">Inversionista</div>
+          <code>inversionista@kastor.pe</code>
+          <code>Kastor.Socio26</code>
+          <p class="muted" style="color:rgba(255,255,255,.65);margin-bottom:0">Solo mira su panel. No puede cambiar nada.</p>
+        </div>
+      </div>
+      <div class="box warn"><span class="t">⚠️ Importante</span><p>Estas son las claves iniciales. Cámbialas apenas empieces a usar el sistema con datos reales y no las compartas por grupos de WhatsApp.</p></div>
+
+      <h3>📲 Instálala como una app en tu celular</h3>
+      <div class="grid g2">
+        <div class="mini">
+          <h4>🤖 Android (Chrome)</h4>
+          <ol>
+            <li>Abre la dirección en <strong>Chrome</strong>.</li>
+            <li>Toca los <strong>tres puntitos ⋮</strong> arriba a la derecha.</li>
+            <li>Elige <strong>"Agregar a pantalla de inicio"</strong> (o "Instalar app").</li>
+            <li>Listo: aparece el ícono de Kastor junto a tus apps.</li>
+          </ol>
+        </div>
+        <div class="mini">
+          <h4>🍎 iPhone (Safari)</h4>
+          <ol>
+            <li>Abre la dirección en <strong>Safari</strong>.</li>
+            <li>Toca el botón <strong>Compartir</strong> (cuadrito con flecha ↑).</li>
+            <li>Elige <strong>"Agregar a pantalla de inicio"</strong>.</li>
+            <li>Toca <strong>Agregar</strong>.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="box tip"><span class="t">💡 Ojo con esto</span><p>Tus datos se guardan <strong>dentro del navegador de ese celular</strong>. Entra siempre por el mismo ícono o el mismo navegador. Si entras desde otro celular o desde otro navegador, verás datos de demostración, no los tuyos. (Más detalle en la sección 14.)</p></div>
+
+      <h3>🧭 El menú en 10 segundos</h3>
+      <div class="grid g3">
+        <div class="mini"><span class="ico">📊</span><h4>Inicio</h4><p>Resumen del día: qué vence, qué está atrasado, plata por confirmar.</p></div>
+        <div class="mini"><span class="ico">🚚</span><h4>En la calle</h4><p>Todos los equipos alquilados con su semáforo.</p></div>
+        <div class="mini"><span class="ico">➕</span><h4>Alquilar</h4><p>El botón rojo del centro. Abre el asistente de alquiler.</p></div>
+        <div class="mini"><span class="ico">📦</span><h4>Equipos</h4><p>Tu inventario, etiquetas QR y mantenimiento.</p></div>
+        <div class="mini"><span class="ico">👥</span><h4>Clientes</h4><p>Fichas con fotos de documentos, historial y lista negra.</p></div>
+        <div class="mini"><span class="ico">💵</span><h4>Caja</h4><p>Pagos recibidos y pagos "por confirmar".</p></div>
+        <div class="mini"><span class="ico">🤝</span><h4>Inversionista</h4><p>Cuánto le toca a tu socio cada mes.</p></div>
+        <div class="mini"><span class="ico">⚙️</span><h4>Ajustes y reglas</h4><p>Datos de tu empresa, reglas y respaldo.</p></div>
+        <div class="mini"><span class="ico">❓</span><h4>Cómo se usa</h4><p>Ayuda rápida y el enlace a este manual.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="cap" id="s2">
+    <div class="card">
+      <div class="cap-head"><div class="num">2</div><h2>Por qué ya no retener el DNI</h2></div>
+      <p class="lead">Quedarte con el DNI se siente seguro, pero en la práctica <strong>no te protege y te puede meter en problemas</strong>.</p>
+      <div class="grid g2">
+        <div class="box stop"><span class="t">❌ Retener el DNI</span>
+          <ul>
+            <li>El DNI es un documento del Estado: <strong>nadie puede retenerlo</strong> como garantía. Si el cliente se queja, el problema lo tienes tú.</li>
+            <li>El estafador saca un <strong>duplicado en RENIEC</strong> por pocos soles y se olvida del tuyo.</li>
+            <li>Puede ser un <strong>DNI ajeno o falso</strong>: te quedas con un plástico que no vale nada.</li>
+            <li>No prueba nada en una denuncia: no dice qué equipo se llevó ni cuándo.</li>
+          </ul>
+        </div>
+        <div class="box ok"><span class="t">✅ Lo que hacemos ahora</span>
+          <ul>
+            <li>📸 Foto del DNI (frente y reverso).</li>
+            <li>🤳 Selfie del cliente <strong>sosteniendo su DNI</strong>.</li>
+            <li>🧾 Recibo de luz o agua (prueba dónde vive).</li>
+            <li>☎️ Un contacto de referencia.</li>
+            <li>💵 Depósito de garantía <strong>en dinero</strong>.</li>
+            <li>✍️ Contrato firmado con huella digital.</li>
+            <li>📷 4 fotos del equipo con fecha y hora.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="box tip"><span class="t">🧠 Piénsalo así</span><p>El DNI retenido es como un candado de juguete: se ve bonito, pero se abre con la uña. El depósito + las pruebas + el contrato son como una <strong>reja con alarma</strong>: si alguien intenta algo, tienes con qué cobrar y con qué denunciar.</p></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="cap" id="s3">
+    <div class="card">
+      <div class="cap-head"><div class="num">3</div><h2>Las reglas de protección</h2></div>
+      <p class="lead">El sistema clasifica cada equipo y cada cliente. Con eso decide <strong>cuánto depósito pedir</strong> y <strong>qué es obligatorio</strong> antes de entregar.</p>
+      <p class="muted">Todos los números de esta sección son los valores que trae el sistema de fábrica. Puedes cambiarlos en <strong>Ajustes y reglas</strong>.</p>
+
+      <h3>🏷️ Grupos de equipos (según su valor de reposición)</h3>
+      <p>"Valor de reposición" = <strong>lo que te costaría comprar ese equipo otra vez hoy</strong>.</p>
+      <div class="tabla"><table>
+        <thead><tr><th>Grupo</th><th>Valor del equipo</th><th>Depósito sugerido</th><th>Ejemplos (demo)</th><th>Protección extra</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip c-a">A · bajo</span></td><td>Hasta S/ 1,500</td><td><strong>S/ 200</strong> por equipo</td><td>Rotomartillo, vibrador, motosierra 18"</td><td>Lo básico</td></tr>
+          <tr><td><span class="chip c-b">B · medio</span></td><td>S/ 1,501 a S/ 6,000</td><td><strong>S/ 600</strong> por equipo</td><td>Generadores, compresora, martillos, mezcladora, plancha</td><td>Recibo de luz/agua, documentos verificados y <strong>delivery</strong> para clientes no frecuentes</td></tr>
+          <tr><td><span class="chip c-c">C · caro</span></td><td>Más de S/ 6,000</td><td><strong>30 %</strong> del valor del equipo</td><td>Cortadora, apisonador, rodillo zanjero, maquinaria pesada</td><td>Todo lo del grupo B + <strong>GPS obligatorio</strong> + delivery siempre (salvo frecuentes)</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Si el cliente lleva varios equipos, <strong>se suman</strong> los depósitos de cada uno.</li>
+        <li>El total se <strong>redondea hacia arriba a la decena</strong> (S/ 583 → S/ 590).</li>
+        <li>El depósito nunca baja de <strong>S/ 100</strong>.</li>
+        <li>Clientes <strong>frecuentes pagan 50 % menos</strong> de depósito.</li>
+      </ul>
+      <div class="box tip"><span class="t">🧮 Ejemplo</span><p>Un cliente nuevo se lleva una <strong>cortadora de concreto</strong> (valor S/ 7,800, grupo C) y un <strong>rotomartillo</strong> (S/ 1,100, grupo A).<br />Depósito = 30 % de 7,800 (S/ 2,340) + S/ 200 = <strong>S/ 2,540</strong>.</p></div>
+
+      <h3>👤 Niveles de cliente</h3>
+      <div class="tabla"><table>
+        <thead><tr><th>Nivel</th><th>Cuándo</th><th>Qué significa</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip c-n">🆕 Nuevo</span></td><td>Recién registrado, aún no revisas sus documentos.</td><td>Se le piden <strong>todos</strong> los requisitos.</td></tr>
+          <tr><td><span class="chip c-a">✅ Verificado</span></td><td>Tú revisaste sus fotos y marcaste "Verificado".</td><td>Igual se le piden todos los requisitos, pero ya puede llevar equipos del grupo B y C.</td></tr>
+          <tr><td><span class="chip c-b">⭐ Frecuente</span></td><td>Verificado + <strong>3 alquileres</strong> devueltos sin problemas, sin incidencias y sin atrasos de 3 días o más.</td><td>50 % menos de depósito, puede recoger en almacén, no necesita recibo ni selfie nueva. El depósito incluso se puede omitir (dejando constancia).</td></tr>
+          <tr><td><span class="chip c-c">⛔ Bloqueado</span></td><td>Lo pusiste en la lista negra.</td><td><strong>No se le alquila.</strong> El sistema no deja avanzar.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">El nivel "Frecuente" se gana solo, con el historial. Si el cliente tiene una incidencia o se atrasa 3 días o más, pierde el nivel.</p>
+
+      <h3>🚚 ¿Cuándo el delivery es obligatorio?</h3>
+      <ul>
+        <li>Cliente <strong>nuevo o verificado</strong> + equipo de grupo <strong>B o C</strong> → la entrega la haces tú en la obra.</li>
+        <li>Grupo <strong>C</strong> → siempre delivery, salvo clientes frecuentes.</li>
+      </ul>
+      <p>¿Por qué? Porque al llevar el equipo <strong>confirmas con tus propios ojos</strong> que la obra existe y que el cliente está ahí. El que piensa vender el equipo no te va a dar una dirección real.</p>
+
+      <h3>📡 ¿Cuándo el GPS es obligatorio?</h3>
+      <p>Todo equipo del <strong>grupo C</strong> debe tener GPS instalado para poder salir. Si aún no lo tiene, el administrador puede omitirlo dejando constancia, pero <strong>no es recomendable</strong>.</p>
+
+      <h3>🔒 El candado: lo que el sistema revisa antes de entregar</h3>
+      <p>Al final del alquiler, el sistema muestra una lista. <strong>Mientras haya algo en rojo, el botón "Entregar" no se activa.</strong> Es como el cinturón de seguridad que no deja arrancar el carro.</p>
+      <p>Algunos puntos se pueden <strong>omitir</strong> (solo el administrador, y queda grabado en el alquiler con un aviso ⚠️). Úsalo solo con clientes que conoces muy bien.</p>
+      <div class="tabla"><table>
+        <thead><tr><th>Requisito</th><th>Por qué</th><th>¿Se puede omitir?</th></tr></thead>
+        <tbody>
+          <tr class="sub"><td colspan="3">👤 Cliente</td></tr>
+          <tr><td>Cliente elegido</td><td>Sin cliente no hay contrato.</td><td>No</td></tr>
+          <tr><td>Cliente sin bloqueo</td><td>No se alquila a la lista negra.</td><td>No</td></tr>
+          <tr><td>Aceptó el uso de sus datos</td><td>Lo exige la Ley 29733.</td><td>No</td></tr>
+          <tr><td>Foto del documento (frente y reverso)</td><td>Se fotografía, <strong>nunca</strong> se retiene.</td><td>No</td></tr>
+          <tr><td>Selfie con su documento</td><td>Prueba que el DNI es de él y no prestado.</td><td>Sí (no se exige a frecuentes)</td></tr>
+          <tr><td>Recibo de luz o agua</td><td>Confirma dónde vive. Grupo B y C, salvo frecuentes.</td><td>Sí</td></tr>
+          <tr><td>Contacto de referencia</td><td>A quién llamar si el cliente no contesta.</td><td>Sí</td></tr>
+          <tr><td>Documentos revisados por ti</td><td>Comparar la cara de la selfie con la del DNI. Obligatorio desde grupo B.</td><td>Sí</td></tr>
+          <tr class="sub"><td colspan="3">📦 Equipo</td></tr>
+          <tr><td>Al menos un equipo</td><td>—</td><td>No</td></tr>
+          <tr><td>Equipos disponibles</td><td>Evita alquilar algo que está en la calle o en el taller.</td><td>No</td></tr>
+          <tr><td>GPS en equipos caros</td><td>Grupo C sin GPS no sale.</td><td>Sí</td></tr>
+          <tr><td>4 fotos de cada equipo al salir</td><td>Frente, costados, motor/serie y accesorios. Tu prueba contra "ya estaba así".</td><td>No</td></tr>
+          <tr><td>Accesorios revisados</td><td>Puntas, mangueras, llaves… lo que sale debe volver.</td><td>No</td></tr>
+          <tr class="sub"><td colspan="3">🚚 Entrega</td></tr>
+          <tr><td>Entrega por delivery de Kastor</td><td>Cuando aplica (ver arriba).</td><td>Sí</td></tr>
+          <tr><td>Dirección donde se usará</td><td>El equipo no puede moverse de ahí sin avisar.</td><td>No</td></tr>
+          <tr><td>Ubicación GPS de la entrega</td><td>Se toma con tu celular en la obra. Recomendado.</td><td>No bloquea</td></tr>
+          <tr class="sub"><td colspan="3">💵 Pago</td></tr>
+          <tr><td>Alquiler pagado por adelantado</td><td>Confirmado en <strong>tu</strong> app del banco o Yape.</td><td>No</td></tr>
+          <tr><td>Depósito de garantía recibido</td><td>Confirmado igual que el pago.</td><td>Solo a clientes frecuentes</td></tr>
+          <tr><td>Ningún pago "por confirmar"</td><td>Una captura de pantalla <strong>no es</strong> un pago.</td><td>No</td></tr>
+          <tr class="sub"><td colspan="3">✍️ Contrato</td></tr>
+          <tr><td>Contrato firmado por el cliente</td><td>Firma con el dedo en la pantalla.</td><td>No</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="cap" id="s4">
+    <div class="card">
+      <div class="cap-head"><div class="num">4</div><h2>Registrar un cliente (≤ 3 minutos)</h2></div>
+      <p class="lead">Se hace <strong>una sola vez</strong>. La próxima vez solo lo buscas por su nombre o DNI.</p>
+      <p>Entra a <strong>Clientes → Nuevo cliente</strong> (o directamente desde el primer paso del alquiler).</p>
+      <ol class="pasos">
+        <li><strong>Datos básicos (40 s)</strong>Tipo de documento (DNI, Carné de Extranjería o RUC), número, nombre completo y celular. Si es empresa (RUC), anota también el nombre del representante.</li>
+        <li><strong>Dirección (30 s)</strong>Dirección del domicilio, distrito y una referencia ("frente al parque", "portón verde"). Si puedes, pega el enlace de Google Maps.</li>
+        <li><strong>Contacto de referencia (20 s)</strong>Nombre, celular y relación (mamá, esposa, hermano, jefe de obra). <em>Llámalo en ese momento</em> si tienes dudas: 10 segundos que te pueden salvar.</li>
+        <li><strong>Fotos de documentos (60 s)</strong>DNI frente, DNI reverso, <strong>selfie del cliente sosteniendo su DNI junto a la cara</strong> y recibo de luz o agua. Usa buena luz y que se lea todo.</li>
+        <li><strong>Consentimiento de datos (5 s)</strong>Marca que el cliente acepta el uso de sus datos (Ley 29733). Léeselo en voz alta: "Tus datos y fotos solo se usan para este alquiler y para cobrar si hay problemas".</li>
+        <li><strong>Verificar (20 s)</strong>Compara la cara de la selfie con la del DNI, revisa que el nombre del recibo coincida o tenga sentido (familiar). Si todo está bien, toca <strong>"Verificado"</strong>.</li>
+      </ol>
+      <div class="box warn"><span class="t">🚩 Señales de alerta</span>
+        <ul>
+          <li>No quiere tomarse la selfie o se tapa la cara.</li>
+          <li>La foto del DNI es una foto de otra pantalla o una fotocopia.</li>
+          <li>El contacto de referencia no contesta o no lo conoce.</li>
+          <li>Tiene mucho apuro y ofrece pagar "lo que sea" sin depósito.</li>
+          <li>Quiere el equipo más caro y es su primera vez.</li>
+        </ul>
+        <p>Ante dos o más señales: <strong>pide delivery, sube el depósito o no alquiles.</strong></p>
+      </div>
+      <h3>⛔ Lista negra</h3>
+      <p>Desde la ficha del cliente puedes <strong>bloquearlo</strong> escribiendo el motivo ("no devolvió martillo en 2025"). Desde ese momento el sistema no te deja alquilarle, aunque vuelva meses después.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="cap" id="s5">
+    <div class="card">
+      <div class="cap-head"><div class="num">5</div><h2>Alquilar paso a paso</h2></div>
+      <p class="lead">Toca el botón rojo <strong>➕ Alquilar</strong>. El asistente te lleva de la mano en 6 pasos.</p>
+      <ol class="pasos">
+        <li><strong>👤 Cliente</strong>Busca por nombre o DNI, o regístralo ahí mismo. Verás su nivel (🆕 ✅ ⭐ ⛔) y su historial.</li>
+        <li><strong>📦 Equipos</strong>Elige los equipos o <strong>escanea su QR</strong>. Verás el grupo (A, B o C), la tarifa y si está disponible.</li>
+        <li><strong>📅 Fechas y entrega</strong>Fecha de salida y cuántos días. El sistema calcula el <strong>mejor precio</strong> combinando tarifa por día, semana o mes. Elige si el cliente recoge o si haces delivery, la dirección de la obra y quién hace la devolución.</li>
+        <li><strong>💵 Cobro y depósito</strong>El sistema sugiere el depósito según las reglas. Registra cada pago con su método (Yape, Plin, transferencia, efectivo, tarjeta) y el <strong>código de operación</strong>. Márcalo como confirmado <strong>solo después de verlo en tu app</strong>.</li>
+        <li><strong>📷 Fotos y accesorios</strong>Toma 4 fotos de cada equipo (frente, costados, motor o placa de serie, accesorios). Marca los accesorios que salen, el nivel de combustible, el horómetro si tiene y el estado ("operativo, sin observaciones").</li>
+        <li><strong>✍️ Contrato y firma</strong>El contrato se arma solo con todos los datos. Muéstraselo al cliente y que firme con el dedo. Al tocar <strong>Entregar</strong>, el contrato queda sellado con su huella digital.</li>
+      </ol>
+      <div class="box tip"><span class="t">🔐 ¿Qué es la "huella digital" del contrato?</span><p>Es un código único (SHA-256) que se calcula con todo el texto del contrato y la firma. Si alguien cambia aunque sea una coma, el código cambia. Es como el <strong>sello de lacre</strong> de las cartas antiguas: si está roto, se nota.</p></div>
+      <div class="box ok"><span class="t">✅ Al entregar</span><p>El equipo pasa a "En la calle", el contrato queda guardado y puedes enviarlo por WhatsApp o imprimirlo. Si hiciste delivery, toma la <strong>ubicación GPS</strong> de la entrega desde tu celular.</p></div>
+      <p class="muted">Puedes dejar un alquiler a medias: queda como <strong>borrador</strong> y lo terminas después. Los borradores se pueden anular sin dejar rastro en caja.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="cap" id="s6">
+    <div class="card">
+      <div class="cap-head"><div class="num">6</div><h2>Mientras está en la calle</h2></div>
+      <p class="lead">En <strong>🚚 En la calle</strong> ves todos tus equipos alquilados con un semáforo.</p>
+      <div class="semaforo">
+        <div class="luz l-v"><span class="dot"></span><strong>Verde</strong><p style="margin:6px 0 0">Le quedan 2 días o más. Tranquilo.</p></div>
+        <div class="luz l-a"><span class="dot"></span><strong>Amarillo</strong><p style="margin:6px 0 0">Vence mañana o vence hoy. Es hora de recordar.</p></div>
+        <div class="luz l-r"><span class="dot"></span><strong>Rojo</strong><p style="margin:6px 0 0">Ya está atrasado. La mora corre cada día.</p></div>
+      </div>
+
+      <h3>💬 Recordatorios por WhatsApp</h3>
+      <p>Desde el detalle del alquiler, el botón verde de WhatsApp abre un mensaje ya escrito con el nombre del cliente, el equipo y la fecha. Solo revisas y envías. Ejemplo:</p>
+      <div class="wa">Hola Juan, te saludamos de <strong>Kastor</strong> 👋. Te recordamos que mañana vence el alquiler del <strong>Generador 5500 W (KS-GEN-01)</strong>. Si necesitas más días, avísanos hoy para ampliarlo. ¡Gracias!</div>
+      <p class="muted">Todo lo que haces (llamadas, WhatsApp, visitas) se puede anotar en el <strong>seguimiento</strong> del alquiler. Esas notas con fecha son pruebas si luego hay que denunciar.</p>
+
+      <h3>➕ Ampliar el plazo</h3>
+      <ol>
+        <li>Abre el alquiler y toca <strong>"Ampliar plazo"</strong>.</li>
+        <li>Indica cuántos días más. El sistema calcula la diferencia con la mejor tarifa (día/semana/mes).</li>
+        <li><strong>Cobra la ampliación antes</strong> y confírmala en tu app.</li>
+        <li>La nueva fecha queda registrada en el seguimiento.</li>
+      </ol>
+      <div class="box warn"><span class="t">⚠️ Regla</span><p>Ampliar <strong>siempre</strong> con pago por adelantado. "Te pago cuando devuelva" es la frase número uno antes de un equipo perdido.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="cap" id="s7">
+    <div class="card">
+      <div class="cap-head"><div class="num">7</div><h2>Devolución y liquidación del depósito</h2></div>
+      <p class="lead">Cuando el equipo vuelve, abre el alquiler y toca <strong>"Registrar devolución"</strong>.</p>
+      <ol class="pasos">
+        <li><strong>📷 Fotos de retorno</strong>Toma fotos desde los mismos ángulos que a la salida. El sistema te muestra las de salida para comparar.</li>
+        <li><strong>🧰 Accesorios</strong>Marca uno por uno lo que volvió. Lo que falte se anota como <em>faltante</em> con su costo.</li>
+        <li><strong>🔧 Revisión</strong>Prende el equipo. Revisa combustible, horómetro, golpes, piezas cambiadas (compara serie y marcas ocultas). Anota los daños con su costo.</li>
+        <li><strong>🧮 Liquidación</strong>El sistema calcula solo: mora + daños + faltantes + saldo pendiente, y lo resta del depósito.</li>
+        <li><strong>✍️ Firma de devolución</strong>El cliente firma el acta de devolución. Si el equipo necesita reparación, envíalo al taller desde ahí mismo.</li>
+      </ol>
+
+      <h3>🧮 Cómo se calcula la mora</h3>
+      <p><strong>Mora por día = tarifa diaria × 1.5</strong>. Es decir, cada día de atraso cuesta <strong>50 % más</strong> que un día normal de alquiler. Así al cliente nunca le conviene atrasarse "porque sale igual".</p>
+
+      <h3>📒 Ejemplo completo</h3>
+      <p>Un cliente nuevo alquila el <strong>Generador 5500 W (KS-GEN-01)</strong>: valor S/ 2,800 → grupo B. Tarifa S/ 90 por día. Lo pide por 3 días y lo devuelve <strong>2 días tarde</strong>, sin el cable de extensión.</p>
+      <div class="tabla"><table>
+        <thead><tr><th>Concepto</th><th>Cálculo</th><th class="r">Monto</th></tr></thead>
+        <tbody>
+          <tr><td>Alquiler (pagado por adelantado)</td><td>3 días × S/ 90</td><td class="r">S/ 270.00</td></tr>
+          <tr><td>Depósito recibido (grupo B)</td><td>Regla del grupo B</td><td class="r">S/ 600.00</td></tr>
+          <tr class="sub"><td colspan="3">Al devolver</td></tr>
+          <tr><td>Mora</td><td>2 días × (S/ 90 × 1.5 = S/ 135)</td><td class="r">S/ 270.00</td></tr>
+          <tr><td>Faltante: cable de extensión 10 m</td><td>Costo de reponerlo (ejemplo)</td><td class="r">S/ 40.00</td></tr>
+          <tr><td>Saldo de alquiler pendiente</td><td>Ya lo pagó todo</td><td class="r">S/ 0.00</td></tr>
+          <tr class="sub"><td>Total de cargos</td><td>270 + 40 + 0</td><td class="r">S/ 310.00</td></tr>
+          <tr class="total"><td>Devolver al cliente</td><td>600 − 310</td><td class="r">S/ 290.00</td></tr>
+        </tbody>
+      </table></div>
+      <p>Si los cargos fueran <strong>mayores</strong> que el depósito (por ejemplo, 6 días de atraso = S/ 810), el depósito se usa completo y el sistema te muestra cuánto <strong>falta cobrar</strong>: S/ 810 − S/ 600 = <strong>S/ 210</strong>.</p>
+      <div class="box tip"><span class="t">💡 Devuelve el depósito bien</span><p>Devuélvelo por Yape o transferencia (queda constancia) y anota el código de operación. Si es en efectivo, que firme el acta.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="cap" id="s8">
+    <div class="card">
+      <div class="cap-head"><div class="num">8</div><h2>Si no devuelve: día por día</h2></div>
+      <p class="lead">No improvises. Sigue la escalera. Cada paso deja <strong>pruebas</strong> para el siguiente.</p>
+      <ul class="timeline">
+        <li><div class="d d0"><b>−1</b>día</div><div class="x"><strong>Un día antes</strong>Recordatorio amable por WhatsApp: "mañana vence tu alquiler".</div></li>
+        <li><div class="d d0"><b>0</b>vence</div><div class="x"><strong>Día de vencimiento</strong>WhatsApp por la mañana. Si quiere más días, ampliar y cobrar por adelantado.</div></li>
+        <li><div class="d d1"><b>+1</b>día</div><div class="x"><strong>Llamada</strong>Llama al cliente y avisa que la mora ya corre. Si no contesta, llama a su <strong>contacto de referencia</strong>.</div></li>
+        <li><div class="d d2"><b>+2</b>días</div><div class="x"><strong>Visita</strong>Ve a la obra o al domicilio. Revisa el GPS si el equipo lo tiene. <strong>Toma fotos de la visita</strong>. Marca el alquiler como <em>incidencia</em>.</div></li>
+        <li><div class="d d3"><b>+3</b>días</div><div class="x"><strong>Carta notarial</strong>El sistema la genera sola con todos los datos. Plazo de <strong>48 horas</strong> para devolver.</div></li>
+        <li><div class="d d4"><b>+5</b>días</div><div class="x"><strong>Denuncia policial</strong>Por <strong>apropiación ilícita (art. 190 del Código Penal)</strong>, con todas las pruebas. El sistema arma la lista de lo que debes llevar.</div></li>
+      </ul>
+
+      <h3>✉️ La carta notarial</h3>
+      <ol>
+        <li>En el alquiler, abre <strong>Documentos → Carta notarial</strong>. Ya viene llena: cliente, equipos, fechas, días de atraso y mora acumulada.</li>
+        <li>Imprímela (2 copias) y fírmala.</li>
+        <li>Llévala a cualquier <strong>notaría</strong>. Ellos la entregan en el domicilio del cliente y te dan un <strong>cargo</strong> (la constancia). ¡Guárdalo!</li>
+        <li>La carta avisa que, si no devuelve en 48 horas, el contrato se resuelve de pleno derecho (art. 1430 del Código Civil) y se denunciará.</li>
+      </ol>
+      <p class="muted">El costo de la carta lo cobra la notaría y varía según el distrito. Pregunta en la notaría más cercana.</p>
+
+      <h3>🚓 La denuncia: qué llevar a la comisaría</h3>
+      <p>En el alquiler, abre <strong>Documentos → Checklist de denuncia</strong> e imprímelo. Lleva:</p>
+      <ul class="check">
+        <li>Tu DNI (original y copia).</li>
+        <li>El contrato firmado impreso desde el sistema, con su huella digital.</li>
+        <li>Fotos de la entrega: equipo, cliente con el equipo y ubicación GPS.</li>
+        <li>Fotos del DNI del cliente y su selfie con el DNI.</li>
+        <li>Comprobantes de compra o facturas de los equipos (prueban que son tuyos).</li>
+        <li>Número de serie y fotos de las marcas ocultas de cada equipo.</li>
+        <li>Capturas del historial de WhatsApp con los recordatorios y requerimientos.</li>
+        <li>El cargo de la carta notarial.</li>
+        <li>Reporte o capturas del GPS con la última ubicación conocida.</li>
+        <li>El registro de seguimiento del sistema (llamadas, visitas, fechas).</li>
+      </ul>
+      <div class="box stop"><span class="t">🛑 No hagas</span><p>No entres por la fuerza a una casa ni amenaces. Si el GPS muestra dónde está el equipo, ve <strong>con la policía</strong>. Tu fuerza está en los papeles, no en los puños.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="cap" id="s9">
+    <div class="card">
+      <div class="cap-head"><div class="num">9</div><h2>Las 7 estafas más comunes en el Perú</h2></div>
+      <p class="lead">Estas son las mañas que más se repiten en el alquiler de equipos. El sistema tiene una traba para cada una.</p>
+      <div class="tabla"><table>
+        <thead><tr><th>#</th><th>La estafa</th><th>Cómo la bloquea el sistema</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>🪪 DNI falso o prestado.</strong> Alquila con el DNI de otra persona o uno adulterado.</td><td>Selfie sosteniendo el DNI, verificación de cara, recibo de domicilio y contacto de referencia. Sin eso, no se entrega.</td></tr>
+          <tr><td>2</td><td><strong>📱 Captura de Yape falsa.</strong> Te muestra una "constancia" hecha con una app falsa o editada.</td><td>Solo cuenta el pago <strong>marcado como confirmado</strong> después de verlo en tu app. Si hay pagos "por confirmar", el candado no se abre.</td></tr>
+          <tr><td>3</td><td><strong>💰 Alquilar para vender o empeñar.</strong> Se lleva el equipo y lo vende en un mercado al día siguiente.</td><td>Delivery a la obra (dirección real), GPS en equipos caros, marcas ocultas grabadas, depósito alto y contrato que prohíbe vender o empeñar.</td></tr>
+          <tr><td>4</td><td><strong>👻 No devolver y desaparecer.</strong> Deja de contestar el celular.</td><td>Semáforo, recordatorios, contacto de referencia y la escalera de 5 días con carta notarial y denuncia listas.</td></tr>
+          <tr><td>5</td><td><strong>🔩 Cambiar piezas.</strong> Devuelve el equipo con motor, batería, punta o disco "cambiado" por uno viejo.</td><td>4 fotos con fecha al salir, número de serie, marcas ocultas y revisión de accesorios uno por uno al volver.</td></tr>
+          <tr><td>6</td><td><strong>🏚️ Dirección falsa.</strong> Da una obra o domicilio que no existe.</td><td>Recibo de luz o agua, delivery obligatorio para nuevos con equipos B y C, ubicación GPS tomada en la entrega.</td></tr>
+          <tr><td>7</td><td><strong>🤷 "Así me lo diste".</strong> Niega haber dañado el equipo para no pagar.</td><td>Fotos de salida firmadas en el contrato (con huella digital), fotos de retorno y acta de devolución firmada.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="cap" id="s10">
+    <div class="card">
+      <div class="cap-head"><div class="num">10</div><h2>Cómo confirmar un pago de verdad</h2></div>
+      <div class="box stop"><span class="t">🛑 Regla de oro</span><p><strong>Una captura de pantalla NO es un pago.</strong> Un pago es real solo cuando lo ves <strong>en tu propia app</strong> de Yape, Plin o del banco.</p></div>
+      <p>Hoy existen <strong>apps de "Yape falso"</strong> que generan constancias idénticas a las reales, con sonido y todo. También editan capturas en minutos. Por eso no se mira el celular del cliente: se mira el tuyo.</p>
+      <h3>📲 Yape o Plin</h3>
+      <ol class="pasos">
+        <li><strong>Pide que te yapee</strong>Dale tu número o tu QR.</li>
+        <li><strong>Abre TU app</strong>No la del cliente. Ve a tus movimientos.</li>
+        <li><strong>Revisa 4 cosas</strong>Monto exacto, nombre de quien envía, hora (hace segundos) y que aparezca en tu saldo.</li>
+        <li><strong>Copia el código de operación</strong>Anótalo en el sistema al registrar el pago.</li>
+        <li><strong>Marca "confirmado en mi app"</strong>Solo ahí el candado lo cuenta.</li>
+      </ol>
+      <h3>🏦 Transferencias bancarias</h3>
+      <ul>
+        <li>Las transferencias a otro banco pueden <strong>demorar</strong>. Si no aparece en tu cuenta, el pago queda <strong>"por confirmar"</strong> y el equipo <strong>no sale</strong>.</li>
+        <li>Desconfía de "ya te transferí, mira el voucher" con apuro.</li>
+        <li>Verifica que el nombre del titular coincida con el cliente o con su empresa.</li>
+      </ul>
+      <h3>💵 Efectivo</h3>
+      <ul>
+        <li>Cuenta delante del cliente. Revisa billetes grandes: marca de agua, hilo de seguridad y tinta que cambia de color al inclinar.</li>
+        <li>El efectivo lo marcas como confirmado cuando ya lo tienes en la mano.</li>
+      </ul>
+      <p class="muted">En <strong>Caja</strong> ves todos los pagos "por confirmar". Revísalos cada día.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="cap" id="s11">
+    <div class="card">
+      <div class="cap-head"><div class="num">11</div><h2>GPS: tipos recomendados y costos</h2></div>
+      <p class="lead">El GPS es el <strong>"¿dónde estás?"</strong> que el equipo responde aunque el cliente no conteste.</p>
+      <div class="box warn"><span class="t">💲 Precios de referencia</span><p>Los montos son <strong>referenciales</strong> para que tengas una idea. Cotiza con 2 o 3 proveedores locales antes de comprar.</p></div>
+      <div class="tabla"><table>
+        <thead><tr><th>Tipo</th><th>Equipo (una vez)</th><th>Plan mensual</th><th>Ideal para</th><th>Ventajas / cuidados</th></tr></thead>
+        <tbody>
+          <tr><td><strong>🔌 GPS cableado</strong></td><td>S/ 150 – 400</td><td>S/ 15 – 40</td><td>Maquinaria con batería: retroexcavadora, rodillo, volquete</td><td>Señal en vivo, algunos permiten apagar el motor a distancia. Debe instalarlo un técnico y quedar escondido.</td></tr>
+          <tr><td><strong>🔋 GPS a batería, oculto</strong></td><td>S/ 150 – 350</td><td>S/ 10 – 25</td><td>Equipos sin batería: compactadoras, cortadoras, generadores</td><td>Se esconde dentro del chasis. La batería dura semanas o meses según los reportes. Recárgalo en cada devolución.</td></tr>
+          <tr><td><strong>🏷️ AirTag / SmartTag</strong></td><td>S/ 100 – 150</td><td>Sin plan</td><td>Respaldo en equipos medianos</td><td>Barato y pequeño, pero solo ubica si hay celulares cerca. Úsalo como <strong>segundo</strong> rastreador, no como único.</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>En la ficha del equipo marca <strong>"Tiene GPS"</strong> y anota el IMEI o el enlace del rastreador.</li>
+        <li>Esconde el GPS donde no se vea a simple vista. El contrato (cláusula novena) avisa que el equipo puede tener rastreo.</li>
+        <li>Prueba el GPS <strong>antes de cada salida</strong> de un equipo del grupo C.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="cap" id="s12">
+    <div class="card">
+      <div class="cap-head"><div class="num">12</div><h2>Inventario, QR y marcas ocultas</h2></div>
+      <h3>🔢 Códigos</h3>
+      <p>Cada equipo tiene un código corto: <code>KS-GEN-01</code> = Kastor · Generador · número 1. Otros ejemplos: <code>KS-MRT</code> martillos, <code>KS-CMP</code> compresoras, <code>KS-MEZ</code> mezcladoras.</p>
+      <h3>🏷️ Etiquetas QR</h3>
+      <ol>
+        <li>En <strong>Equipos</strong>, abre <strong>Etiquetas</strong> e imprime las etiquetas QR.</li>
+        <li>Pégalas en un lugar visible y protégelas con cinta transparente.</li>
+        <li>Al alquilar o devolver, <strong>escanea el QR</strong> con el celular: aparece el equipo al instante, sin buscar.</li>
+      </ol>
+      <h3>🔍 Marcas ocultas (grabado)</h3>
+      <p>Graba <strong>"KASTOR"</strong> y el código en 2 o 3 lugares escondidos (debajo del tanque, en el chasis, dentro de una tapa). Usa un grabador eléctrico o punzón. Toma foto de cada marca y anota en la ficha <em>dónde</em> están (solo tú lo ves).</p>
+      <div class="box tip"><span class="t">🧠 ¿Para qué?</span><p>Si el equipo aparece en un mercado o en otra obra, las marcas ocultas prueban que es tuyo aunque le hayan arrancado la etiqueta y lijado la serie. Y si te devuelven un motor "cambiado", lo sabes al instante.</p></div>
+      <h3>🔧 Mantenimiento</h3>
+      <ul>
+        <li>Registra cada cambio de aceite, filtro, bujía o reparación con su costo.</li>
+        <li>Si un equipo vuelve con fallas, envíalo a <strong>"En taller"</strong>: no se podrá alquilar hasta que lo marques disponible.</li>
+        <li>Los costos de mantenimiento de los equipos del inversionista se descuentan de su utilidad (sección 13).</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="cap" id="s13">
+    <div class="card">
+      <div class="cap-head"><div class="num">13</div><h2>Tu inversionista</h2></div>
+      <p class="lead">Tu socio pone máquinas y recibe un <strong>porcentaje de la ganancia neta de SUS máquinas</strong>. Nada más, nada menos.</p>
+      <h3>👀 Qué ve</h3>
+      <ul>
+        <li>Solo su panel: sus equipos, cuántos días estuvieron alquilados, cuánto generaron, cuánto se gastó en mantenimiento y cuánto le toca.</li>
+        <li><strong>No ve</strong> datos personales de tus clientes, ni tus otros equipos, ni puede cambiar nada.</li>
+      </ul>
+      <h3>🧮 Cómo se calcula su parte</h3>
+      <ol>
+        <li><strong>Ingresos de sus equipos:</strong> lo cobrado por alquiler de cada equipo suyo. Si un alquiler tenía varios equipos, el dinero se reparte según el precio de cada uno.</li>
+        <li><strong>Menos mantenimiento:</strong> lo gastado en reparar o mantener sus equipos.</li>
+        <li><strong>= Utilidad neta</strong> de sus equipos.</li>
+        <li><strong>× su porcentaje</strong> (en la demo, 50 %).</li>
+      </ol>
+      <div class="tabla"><table>
+        <thead><tr><th>Ejemplo de un mes (cifras ilustrativas)</th><th class="r">Monto</th></tr></thead>
+        <tbody>
+          <tr><td>Ingresos por alquiler de sus equipos</td><td class="r">S/ 3,000.00</td></tr>
+          <tr><td>Menos mantenimiento (cambio de disco diamantado)</td><td class="r">− S/ 280.00</td></tr>
+          <tr class="sub"><td>Utilidad neta</td><td class="r">S/ 2,720.00</td></tr>
+          <tr class="total"><td>Le toca al inversionista (50 %)</td><td class="r">S/ 1,360.00</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">El depósito de garantía <strong>no es ingreso</strong>: es plata del cliente que se devuelve. La mora y los daños cobrados sí pueden repartirse si así lo acuerdan.</p>
+      <h3>📝 Cláusulas recomendadas para el acuerdo con tu inversionista</h3>
+      <ul>
+        <li><strong>Lista de equipos aportados</strong> con serie, valor y fecha de entrega.</li>
+        <li><strong>Porcentaje</strong> y qué se descuenta antes de repartir (mantenimiento, GPS, repuestos, comisiones).</li>
+        <li><strong>Fecha de pago</strong> (por ejemplo, los primeros 10 días de cada mes) con el estado de cuenta del sistema.</li>
+        <li>Quién decide <strong>tarifas y a quién se alquila</strong> (tú, como operador).</li>
+        <li>Qué pasa si un equipo se <strong>pierde o lo roban</strong>: cómo se reparte lo recuperado o el seguro.</li>
+        <li><strong>Reparaciones grandes:</strong> desde qué monto se consulta antes al socio.</li>
+        <li><strong>Salida:</strong> cómo retira sus equipos o tú los compras, con cuánto tiempo de aviso.</li>
+        <li><strong>Confidencialidad</strong> de los datos de clientes.</li>
+      </ul>
+      <div class="box warn"><span class="t">⚠️ Por ahora</span><p>Mientras los datos vivan solo en tu celular (sección 14), el inversionista no puede ver su panel desde su propio teléfono. Muéstraselo en el tuyo o imprímele el estado de cuenta mensual en PDF.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="cap" id="s14">
+    <div class="card">
+      <div class="cap-head"><div class="num">14</div><h2>Respaldo de datos</h2></div>
+      <p class="lead">Hoy tus datos viven <strong>dentro del navegador de tu celular</strong>, como las fotos en la galería. Si se borra, se pierde.</p>
+      <div class="grid g2">
+        <div class="box ok"><span class="t">✅ Haz esto</span>
+          <ul>
+            <li>Cada semana: <strong>Ajustes → Descargar respaldo</strong>.</li>
+            <li>Guarda el archivo en Google Drive o mándatelo por correo.</li>
+            <li>Ponle la fecha en el nombre (lo trae solo).</li>
+            <li>Si cambias de celular: instalas la app en el nuevo y <strong>Restaurar respaldo</strong>.</li>
+          </ul>
+        </div>
+        <div class="box stop"><span class="t">❌ Nunca hagas</span>
+          <ul>
+            <li>"Borrar datos de navegación" o "Borrar caché" del navegador.</li>
+            <li>Usar el modo incógnito para la app.</li>
+            <li>Desinstalar el navegador sin descargar antes el respaldo.</li>
+            <li>Restaurar un respaldo viejo encima de datos nuevos (lo reemplaza todo).</li>
+          </ul>
+        </div>
+      </div>
+      <p>El respaldo es un archivo <code>.json</code> con todo: equipos, clientes, alquileres, pagos, fotos y ajustes. Contiene datos personales: <strong>guárdalo en un lugar privado</strong>.</p>
+      <h3>☁️ El siguiente paso: la nube</h3>
+      <p>Hoy cada celular es una isla. El siguiente paso es poner los datos en una <strong>base de datos en internet</strong> (por ejemplo, Supabase). Es como pasar de una libreta en tu bolsillo a una pizarra que todos ven al mismo tiempo:</p>
+      <ul>
+        <li>📱 Varios celulares con <strong>los mismos datos</strong> (tú y un ayudante).</li>
+        <li>🤝 Tu inversionista entra desde <strong>su</strong> celular y ve solo lo suyo.</li>
+        <li>💾 Respaldo automático: si pierdes el celular, no pierdes nada.</li>
+        <li>🔗 Más adelante: enlace para que el cliente se registre solo, consulta de DNI/RUC y recordatorios de WhatsApp automáticos.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="cap" id="s15">
+    <div class="card">
+      <div class="cap-head"><div class="num">15</div><h2>Checklist diario y semanal</h2></div>
+      <div class="grid g2">
+        <div class="mini">
+          <h4>☀️ Cada mañana (5 min)</h4>
+          <ul class="check">
+            <li>Abrir <strong>Inicio</strong> y <strong>En la calle</strong>.</li>
+            <li>Mandar WhatsApp a los que vencen hoy y mañana (amarillos).</li>
+            <li>Llamar a los rojos y anotar en el seguimiento.</li>
+            <li>Revisar en <strong>Caja</strong> los pagos "por confirmar".</li>
+            <li>Ver qué equipos vuelven hoy y preparar el espacio.</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h4>🌙 Cada noche (3 min)</h4>
+          <ul class="check">
+            <li>Todas las devoluciones del día registradas.</li>
+            <li>Depósitos devueltos con su código de operación.</li>
+            <li>Equipos con fallas enviados a "En taller".</li>
+            <li>Borradores terminados o anulados.</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h4>📅 Cada semana (15 min)</h4>
+          <ul class="check">
+            <li><strong>Descargar respaldo</strong> y guardarlo en Drive/correo.</li>
+            <li>Cargar los GPS a batería que regresaron.</li>
+            <li>Probar los GPS de los equipos del grupo C.</li>
+            <li>Revisar etiquetas QR despegadas.</li>
+            <li>Registrar gastos de mantenimiento.</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h4>🗓️ Cada mes</h4>
+          <ul class="check">
+            <li>Estado de cuenta del inversionista y pago.</li>
+            <li>Revisar las reglas: ¿algún equipo cambió de valor?</li>
+            <li>Mantenimiento preventivo de los más usados.</li>
+            <li>Revisar la lista negra y las incidencias abiertas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section class="cap" id="s16">
+    <div class="card">
+      <div class="cap-head"><div class="num">16</div><h2>Aviso legal</h2></div>
+      <div class="box warn"><span class="t">⚖️ Revisión con abogado</span><p>El <strong>contrato</strong>, el <strong>acta de devolución</strong> y la <strong>carta notarial</strong> que genera el sistema son <strong>borradores</strong> bien armados, pero no reemplazan a un abogado. Llévalos <strong>una vez</strong> a un abogado peruano para que los revise y ajuste a tu empresa. Después, los usas siempre.</p></div>
+      <h3>📚 Normas en las que se apoyan</h3>
+      <div class="tabla"><table>
+        <thead><tr><th>Norma</th><th>Para qué se usa</th></tr></thead>
+        <tbody>
+          <tr><td>Código Civil, art. 1341</td><td>Penalidad: la mora diaria pactada en el contrato.</td></tr>
+          <tr><td>Código Civil, art. 1430</td><td>Resolución de pleno derecho: terminar el contrato si no devuelve tras el requerimiento.</td></tr>
+          <tr><td>Código Civil, art. 141-A</td><td>Manifestación de voluntad por medios electrónicos: la firma en la pantalla.</td></tr>
+          <tr><td>Ley 27269</td><td>Ley de Firmas y Certificados Digitales.</td></tr>
+          <tr><td>Código Penal, art. 190</td><td>Apropiación ilícita: quedarse con un bien recibido con obligación de devolverlo.</td></tr>
+          <tr><td>Ley 29733</td><td>Protección de Datos Personales: consentimiento y cuidado de los datos y fotos del cliente.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>🔐 Datos personales (Ley 29733)</h3>
+      <ul>
+        <li>Pide siempre el consentimiento (el sistema no deja avanzar sin él).</li>
+        <li>Usa los datos <strong>solo</strong> para el alquiler, la cobranza y acciones legales.</li>
+        <li>No compartas fotos de DNI de clientes por grupos ni redes sociales.</li>
+        <li>Si un cliente pide ver, corregir o borrar sus datos, atiéndelo (salvo que haya una deuda o un proceso pendiente).</li>
+        <li>Protege tu celular con clave y guarda los respaldos en un lugar privado.</li>
+        <li>Consulta con tu abogado si tu banco de datos de clientes debe inscribirse ante la Autoridad Nacional de Protección de Datos Personales.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<div class="cinta"></div>
+<footer>
+  <strong>KASTOR · Alquiler de equipos</strong><br />
+  Manual de uso del sistema Kastor Alquiler · Lima, Perú<br />
+  Este manual no constituye asesoría legal.
+</footer>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ Guardar en PDF</button>
+
+</body>
+</html>
