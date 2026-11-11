@@ -92,6 +92,13 @@
   tr.total td { background: var(--negro) !important; color: #fff; font-weight: 900; }
   tr.sub td { font-weight: 800; background: var(--concreto) !important; }
 
+  td.c, th.c { text-align: center; white-space: nowrap; }
+  table.roles td:first-child { min-width: 240px; }
+  table.dicc td:first-child { white-space: nowrap; width: 1%; }
+  .t-min { display: inline-block; vertical-align: 1px; margin-left: 6px; border-radius: 999px; padding: 1px 9px; font-size: 11px; font-weight: 800; background: var(--amarillo); color: var(--negro); }
+  .primer-dia li { margin: 12px 0; }
+  .primer-dia li > strong { font-size: 16px; }
+
   .chip { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 800; white-space: nowrap; }
   .c-a { background: #D1FAE5; color: #065F46; } .c-b { background: #FEF3C7; color: #78350F; } .c-c { background: #FEE2E2; color: #991B1B; }
   .c-n { background: #E0F2FE; color: #075985; } .c-g { background: var(--concreto-2); color: var(--grafito); }
@@ -115,7 +122,7 @@
   /* Credenciales */
   .cred { background: var(--negro); color: #fff; border-radius: 14px; padding: 14px 16px; }
   .cred .rol { color: var(--amarillo); font-size: 11px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-  .cred code { display: block; font-family: ui-monospace, Consolas, monospace; font-size: 15px; margin-top: 4px; word-break: break-all; }
+  .cred code { display: block; font-family: ui-monospace, Consolas, monospace; font-size: 13px; margin-top: 5px; padding: 3px 8px; border-radius: 6px; background: rgba(255,255,255,.12); color: #fff; word-break: break-all; }
   code { font-family: ui-monospace, Consolas, monospace; background: var(--concreto); padding: 1px 6px; border-radius: 6px; font-size: .92em; }
   .url { display: block; text-align: center; background: var(--rojo); color: #fff; text-decoration: none; padding: 14px; border-radius: 999px; font-weight: 900; margin: 14px 0; word-break: break-all; }
 
@@ -154,21 +161,34 @@
   }
 
   @media print {
-    @page { size: A4; margin: 13mm 12mm; }
-    body { background: #fff; font-size: 11.5pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; font-size: 10.5pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .print-btn, .no-print { display: none !important; }
-    .wrap { max-width: none; padding: 0; }
-    .hero { padding: 26px 20px; }
-    .toc { margin-top: 12px; }
-    .card { box-shadow: none; border: 1px solid #ddd; break-inside: auto; }
-    section.cap { break-before: page; margin-top: 0; }
-    section.cap.sin-salto { break-before: auto; margin-top: 24px; }
-    .box, .mini, .timeline li, tr, .cred, .luz, .pasos > li { break-inside: avoid; }
-    h2, h3, .cap-head { break-after: avoid; }
+    .wrap { max-width: none; padding: 0 0 10px; }
+    .hero { padding: 24px 20px; }
+    .hero h1 { font-size: 40px; }
+    .toc { margin-top: 10px; }
+    .toc ol { grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
+    .toc li a { padding: 4px 6px; font-size: 11.5px; gap: 8px; }
+    .toc li a::before { width: 22px; height: 22px; font-size: 11px; border-radius: 7px; }
+    .card { box-shadow: none; border: 1px solid #ddd; break-inside: auto; padding: 16px 18px; margin-top: 12px; }
+    /* Las secciones fluyen una tras otra (sin páginas casi vacías). Los títulos se quedan con su contenido. */
+    section.cap { break-before: auto; margin-top: 14px; }
+    section.cap.sin-salto { margin-top: 14px; }
+    .cap-head { margin-top: 2px; }
+    .num { width: 38px; height: 38px; font-size: 17px; box-shadow: none; }
+    h2 { font-size: 20px; }
+    h3 { margin-top: 16px; }
+    .box, .mini, .timeline li, tr, .cred, .luz, .pasos > li, .check li, .wa { break-inside: avoid; }
+    .semaforo { break-inside: avoid; }
+    h2, h3, h4, .cap-head, .lead, thead { break-after: avoid; }
     .tabla { overflow: visible; border: 1px solid #ccc; }
-    table { min-width: 0; font-size: 10pt; }
+    table { min-width: 0; font-size: 9.5pt; }
+    th { padding: 7px 9px; } td { padding: 7px 9px; }
+    thead { display: table-header-group; }
     a { color: var(--negro); text-decoration: none; }
-    footer { background: #fff; color: #555; border-top: 3px solid var(--negro); }
+    .cinta { height: 8px; }
+    footer { background: #fff; color: #555; border-top: 3px solid var(--negro); padding: 12px; break-inside: avoid; }
   }
 </style>
 </head>
@@ -181,7 +201,7 @@
   </div>
   <div class="cinta"></div>
   <div class="hero">
-    <span class="kick">Manual de uso · versión 1</span>
+    <span class="kick">Manual de uso · versión 2</span>
     <h1>Alquila rápido.<br /><span>Alquila blindado.</span></h1>
     <p>Esta guía explica, paso a paso y sin palabras técnicas, cómo usar <strong>Kastor Alquiler</strong> para alquilar tus equipos en minutos y, al mismo tiempo, protegerte de los robos y estafas más comunes en el Perú.</p>
     <div class="pills">
@@ -200,21 +220,24 @@
     <span class="kick">Contenido</span>
     <ol>
       <li><a href="#s1">Qué es y cómo entrar</a></li>
-      <li><a href="#s2">Por qué ya no retener el DNI</a></li>
-      <li><a href="#s3">Las reglas de protección</a></li>
-      <li><a href="#s4">Registrar un cliente (≤ 3 min)</a></li>
-      <li><a href="#s5">Alquilar paso a paso</a></li>
-      <li><a href="#s6">Mientras está en la calle</a></li>
-      <li><a href="#s7">Devolución y depósito</a></li>
-      <li><a href="#s8">Si no devuelve el equipo</a></li>
-      <li><a href="#s9">Las 7 estafas más comunes</a></li>
-      <li><a href="#s10">Cómo confirmar un pago de verdad</a></li>
-      <li><a href="#s11">GPS: tipos y costos</a></li>
-      <li><a href="#s12">Inventario, QR y marcas ocultas</a></li>
-      <li><a href="#s13">Tu inversionista</a></li>
-      <li><a href="#s14">Respaldo de datos</a></li>
-      <li><a href="#s15">Checklist diario y semanal</a></li>
-      <li><a href="#s16">Aviso legal</a></li>
+      <li><a href="#s2">Los 3 tipos de usuario</a></li>
+      <li><a href="#s3">Primer día: guía rápida en 10 minutos</a></li>
+      <li><a href="#s4">Por qué ya no retener el DNI</a></li>
+      <li><a href="#s5">Las reglas de protección</a></li>
+      <li><a href="#s6">Registrar un cliente (≤ 3 min)</a></li>
+      <li><a href="#s7">Alquilar paso a paso</a></li>
+      <li><a href="#s8">Mientras está en la calle</a></li>
+      <li><a href="#s9">Devolución y depósito</a></li>
+      <li><a href="#s10">Si no devuelve el equipo</a></li>
+      <li><a href="#s11">Las 7 estafas más comunes</a></li>
+      <li><a href="#s12">Cómo confirmar un pago de verdad</a></li>
+      <li><a href="#s13">GPS: tipos y costos</a></li>
+      <li><a href="#s14">Inventario, QR y marcas ocultas</a></li>
+      <li><a href="#s15">Tu inversionista</a></li>
+      <li><a href="#s16">Respaldo de datos</a></li>
+      <li><a href="#s17">Checklist diario y semanal</a></li>
+      <li><a href="#s18">Diccionario rápido</a></li>
+      <li><a href="#s19">Aviso legal</a></li>
     </ol>
   </nav>
 
@@ -228,22 +251,28 @@
       <h3>🌐 La dirección de la app</h3>
       <a class="url" href="https://stlv2400.github.io/kastor-alquiler/">https://stlv2400.github.io/kastor-alquiler/</a>
 
-      <h3>🔑 Usuarios</h3>
-      <div class="grid g2">
+      <h3>🔑 Usuarios de demostración</h3>
+      <div class="grid g3">
         <div class="cred">
-          <div class="rol">Administrador (tú)</div>
+          <div class="rol">👑 Administrador (tú)</div>
           <code>admin@kastor.pe</code>
           <code>Kastor.Peru26</code>
-          <p class="muted" style="color:rgba(255,255,255,.65);margin-bottom:0">Puede hacer todo: alquilar, cobrar, cambiar reglas.</p>
+          <p class="muted" style="color:rgba(255,255,255,.65);margin-bottom:0">Ve y puede cambiar todo.</p>
         </div>
         <div class="cred">
-          <div class="rol">Inversionista</div>
+          <div class="rol">🧑‍🔧 Empleado</div>
+          <code>empleado@kastor.pe</code>
+          <code>Kastor.Peru26</code>
+          <p class="muted" style="color:rgba(255,255,255,.65);margin-bottom:0">Alquila, cobra y recibe equipos. No ve la caja.</p>
+        </div>
+        <div class="cred">
+          <div class="rol">📊 Inversionista</div>
           <code>inversionista@kastor.pe</code>
           <code>Kastor.Socio26</code>
           <p class="muted" style="color:rgba(255,255,255,.65);margin-bottom:0">Solo mira su panel. No puede cambiar nada.</p>
         </div>
       </div>
-      <div class="box warn"><span class="t">⚠️ Importante</span><p>Estas son las claves iniciales. Cámbialas apenas empieces a usar el sistema con datos reales y no las compartas por grupos de WhatsApp.</p></div>
+      <div class="box warn"><span class="t">⚠️ Importante</span><p>Estas son las claves iniciales. Cámbialas apenas empieces a usar el sistema con datos reales y no las compartas por grupos de WhatsApp. En la sección 2 se explica qué puede hacer cada tipo de usuario.</p></div>
 
       <h3>📲 Instálala como una app en tu celular</h3>
       <div class="grid g2">
@@ -266,7 +295,7 @@
           </ol>
         </div>
       </div>
-      <div class="box tip"><span class="t">💡 Ojo con esto</span><p>Tus datos se guardan <strong>dentro del navegador de ese celular</strong>. Entra siempre por el mismo ícono o el mismo navegador. Si entras desde otro celular o desde otro navegador, verás datos de demostración, no los tuyos. (Más detalle en la sección 14.)</p></div>
+      <div class="box tip"><span class="t">💡 Ojo con esto</span><p>Tus datos se guardan <strong>dentro del navegador de ese celular</strong>. Entra siempre por el mismo ícono o el mismo navegador. Si entras desde otro celular o desde otro navegador, verás datos de demostración, no los tuyos. (Más detalle en la sección 16.)</p></div>
 
       <h3>🧭 El menú en 10 segundos</h3>
       <div class="grid g3">
@@ -278,6 +307,8 @@
         <div class="mini"><span class="ico">💵</span><h4>Caja</h4><p>Pagos recibidos y pagos "por confirmar".</p></div>
         <div class="mini"><span class="ico">🤝</span><h4>Inversionista</h4><p>Cuánto le toca a tu socio cada mes.</p></div>
         <div class="mini"><span class="ico">⚙️</span><h4>Ajustes y reglas</h4><p>Datos de tu empresa, reglas y respaldo.</p></div>
+        <div class="mini"><span class="ico">🧑‍🔧</span><h4>Equipo de trabajo</h4><p>Sección "Usuarios": aquí creas las cuentas de tus empleados.</p></div>
+        <div class="mini"><span class="ico">🔑</span><h4>Mi cuenta</h4><p>Cada usuario cambia aquí su propia clave.</p></div>
         <div class="mini"><span class="ico">❓</span><h4>Cómo se usa</h4><p>Ayuda rápida y el enlace a este manual.</p></div>
       </div>
     </div>
@@ -286,7 +317,84 @@
   <!-- 2 -->
   <section class="cap" id="s2">
     <div class="card">
-      <div class="cap-head"><div class="num">2</div><h2>Por qué ya no retener el DNI</h2></div>
+      <div class="cap-head"><div class="num">2</div><h2>Los 3 tipos de usuario</h2></div>
+      <p class="lead">Cada persona entra con <strong>su propio usuario</strong> y ve solo lo que necesita. El sistema tiene tres tipos:</p>
+      <div class="grid g3">
+        <div class="mini"><span class="ico">👑</span><h4>Administrador</h4><p>El dueño. Ve y puede cambiar todo: reglas, caja, equipos, usuarios y respaldos.</p></div>
+        <div class="mini"><span class="ico">🧑‍🔧</span><h4>Empleado</h4><p>Atiende el almacén. Alquila, cobra y recibe equipos siguiendo las reglas <strong>al pie de la letra</strong>, sin poder saltárselas.</p></div>
+        <div class="mini"><span class="ico">📊</span><h4>Inversionista</h4><p>Solo mira: cuánto trabajaron sus equipos y cuánto le toca. No puede cambiar nada.</p></div>
+      </div>
+
+      <h3>📋 Qué puede hacer cada uno</h3>
+      <div class="tabla"><table class="roles">
+        <thead><tr><th>Acción</th><th class="c">👑 Admin</th><th class="c">🧑‍🔧 Empleado</th><th class="c">📊 Inversionista</th></tr></thead>
+        <tbody>
+          <tr class="sub"><td colspan="4">El trabajo del día a día</td></tr>
+          <tr><td>Alquilar, entregar, ampliar y recibir devoluciones</td><td class="c">✅</td><td class="c">✅</td><td class="c">—</td></tr>
+          <tr><td>Registrar y verificar clientes (ver sus fotos y contratos)</td><td class="c">✅</td><td class="c">✅</td><td class="c">—</td></tr>
+          <tr><td>Registrar pagos y confirmarlos ("ya lo vi en mi app")</td><td class="c">✅</td><td class="c">✅</td><td class="c">—</td></tr>
+          <tr><td>Ver el inventario e imprimir etiquetas QR</td><td class="c">✅</td><td class="c">✅</td><td class="c">—</td></tr>
+          <tr><td>Mandar equipos a taller y anotar mantenimientos</td><td class="c">✅</td><td class="c">✅</td><td class="c">—</td></tr>
+          <tr><td>Enviar recordatorios por WhatsApp</td><td class="c">✅</td><td class="c">✅</td><td class="c">—</td></tr>
+          <tr><td>Cambiar su propia clave (en "Mi cuenta")</td><td class="c">✅</td><td class="c">✅</td><td class="c">—</td></tr>
+          <tr class="sub"><td colspan="4">Solo el dueño</td></tr>
+          <tr><td>Ver la caja, los ingresos y los depósitos acumulados</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Ver y gestionar al inversionista</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Cambiar las reglas, las tarifas y los datos de la empresa</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Crear, editar y borrar equipos</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Dar descuentos y cobrar menos depósito del sugerido</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Omitir un requisito del candado (queda grabado)</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Bloquear o desbloquear clientes (lista negra)</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Borrar equipos o clientes</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Descargar y restaurar respaldos</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr><td>Crear usuarios para el equipo de trabajo</td><td class="c">✅</td><td class="c">—</td><td class="c">—</td></tr>
+          <tr class="sub"><td colspan="4">El socio</td></tr>
+          <tr><td>Ver su panel: sus equipos, días alquilados, ingresos, mantenimiento y su parte</td><td class="c">✅</td><td class="c">—</td><td class="c">✅</td></tr>
+          <tr><td>Imprimir su liquidación mensual</td><td class="c">✅</td><td class="c">—</td><td class="c">✅</td></tr>
+          <tr><td>Ver clientes, contratos, fotos o equipos de otros</td><td class="c">✅</td><td class="c">✅</td><td class="c">—</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">✅ = puede &nbsp;·&nbsp; — = no puede. Si el empleado intenta algo que no le toca, el sistema simplemente no le muestra el botón.</p>
+
+      <h3>➕ Cómo crear el usuario de tu empleado</h3>
+      <ol class="pasos">
+        <li><strong>Entra como administrador</strong>Abre el menú y toca <strong>Equipo de trabajo</strong> (la sección "Usuarios").</li>
+        <li><strong>Toca "Nuevo usuario"</strong>Escribe su nombre, su correo y una clave inicial. Elige el tipo <strong>Empleado</strong>.</li>
+        <li><strong>Dale sus datos en persona</strong>Correo y clave inicial. Nada por grupos de WhatsApp.</li>
+        <li><strong>Que cambie su clave el primer día</strong>Entra con su usuario, abre <strong>Mi cuenta</strong> y pone una clave que solo él sepa.</li>
+      </ol>
+      <p class="muted">Si un empleado deja de trabajar contigo, entra a <strong>Equipo de trabajo</strong> y desactiva su usuario. Ese mismo día.</p>
+
+      <div class="box stop"><span class="t">🛑 Regla de oro: un usuario por persona</span>
+        <p><strong>Nunca compartas la clave de administrador con tus empleados.</strong> Con la clave del dueño podrían ver la caja, bajar depósitos, saltarse el candado, borrar registros o descargar todos los datos de tus clientes.</p>
+        <p>Con su propio usuario, cada quien hace su trabajo, nada más. Y si alguien se va, le quitas el acceso sin tener que cambiar tu clave ni avisar a los demás.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="cap" id="s3">
+    <div class="card">
+      <div class="cap-head"><div class="num">3</div><h2>Primer día: guía rápida en 10 minutos</h2></div>
+      <p class="lead">Ocho pasos para dejar el sistema <strong>listo con tus datos reales</strong>. Marca cada casilla cuando termines.</p>
+      <ul class="check primer-dia">
+        <li><strong>1. Entrar</strong> <span class="t-min">1 min</span><br />Abre la dirección de la app en tu celular e instálala en la pantalla de inicio (sección 1). Entra con el usuario de administrador.</li>
+        <li><strong>2. Completar los datos de tu empresa</strong> <span class="t-min">2 min</span><br />En <strong>Ajustes y reglas</strong>: nombre de tu empresa, RUC, dirección, celular y Yape. Estos datos salen en los contratos y en los recibos.</li>
+        <li><strong>3. Cambiar tu clave</strong> <span class="t-min">1 min</span><br />En <strong>Mi cuenta</strong>, cambia la clave inicial <code>Kastor.Peru26</code> por una que solo tú sepas.</li>
+        <li><strong>4. Registrar tus equipos reales</strong> <span class="t-min">3 min</span><br />En <strong>Equipos</strong>, borra los equipos de ejemplo (o edítalos) y registra los tuyos: código, nombre, valor de reposición, tarifas y accesorios. Si tienes muchos, empieza con los 5 que más alquilas y sigue después.</li>
+        <li><strong>5. Imprimir las etiquetas QR</strong> <span class="t-min">1 min</span><br />En <strong>Equipos → Etiquetas</strong>, imprime y pega una etiqueta en cada equipo (sección 14).</li>
+        <li><strong>6. Crear el usuario de tu empleado</strong> <span class="t-min">1 min</span><br />En <strong>Equipo de trabajo</strong>, crea un usuario de tipo Empleado para cada persona que atienda el almacén (sección 2).</li>
+        <li><strong>7. Descargar tu primer respaldo</strong> <span class="t-min">30 s</span><br />En <strong>Ajustes → Descargar respaldo</strong>. Guárdalo en Google Drive o mándatelo por correo (sección 16).</li>
+        <li><strong>8. Hacer un alquiler de prueba</strong> <span class="t-min">3 min</span><br />Toca <strong>➕ Alquilar</strong> y usa a un cliente de ejemplo y un equipo tuyo. Recorre los 6 pasos hasta ver el candado (sección 7). Al terminar, anúlalo: los borradores se anulan sin dejar rastro en caja.</li>
+      </ul>
+      <div class="box ok"><span class="t">✅ Listo</span><p>Con esto ya puedes atender a tu primer cliente real. El resto del manual explica el <em>porqué</em> de cada regla; léelo con calma durante la primera semana.</p></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="cap" id="s4">
+    <div class="card">
+      <div class="cap-head"><div class="num">4</div><h2>Por qué ya no retener el DNI</h2></div>
       <p class="lead">Quedarte con el DNI se siente seguro, pero en la práctica <strong>no te protege y te puede meter en problemas</strong>.</p>
       <div class="grid g2">
         <div class="box stop"><span class="t">❌ Retener el DNI</span>
@@ -313,10 +421,10 @@
     </div>
   </section>
 
-  <!-- 3 -->
-  <section class="cap" id="s3">
+  <!-- 5 -->
+  <section class="cap" id="s5">
     <div class="card">
-      <div class="cap-head"><div class="num">3</div><h2>Las reglas de protección</h2></div>
+      <div class="cap-head"><div class="num">5</div><h2>Las reglas de protección</h2></div>
       <p class="lead">El sistema clasifica cada equipo y cada cliente. Con eso decide <strong>cuánto depósito pedir</strong> y <strong>qué es obligatorio</strong> antes de entregar.</p>
       <p class="muted">Todos los números de esta sección son los valores que trae el sistema de fábrica. Puedes cambiarlos en <strong>Ajustes y reglas</strong>.</p>
 
@@ -396,10 +504,10 @@
     </div>
   </section>
 
-  <!-- 4 -->
-  <section class="cap" id="s4">
+  <!-- 6 -->
+  <section class="cap" id="s6">
     <div class="card">
-      <div class="cap-head"><div class="num">4</div><h2>Registrar un cliente (≤ 3 minutos)</h2></div>
+      <div class="cap-head"><div class="num">6</div><h2>Registrar un cliente (≤ 3 minutos)</h2></div>
       <p class="lead">Se hace <strong>una sola vez</strong>. La próxima vez solo lo buscas por su nombre o DNI.</p>
       <p>Entra a <strong>Clientes → Nuevo cliente</strong> (o directamente desde el primer paso del alquiler).</p>
       <ol class="pasos">
@@ -425,10 +533,10 @@
     </div>
   </section>
 
-  <!-- 5 -->
-  <section class="cap" id="s5">
+  <!-- 7 -->
+  <section class="cap" id="s7">
     <div class="card">
-      <div class="cap-head"><div class="num">5</div><h2>Alquilar paso a paso</h2></div>
+      <div class="cap-head"><div class="num">7</div><h2>Alquilar paso a paso</h2></div>
       <p class="lead">Toca el botón rojo <strong>➕ Alquilar</strong>. El asistente te lleva de la mano en 6 pasos.</p>
       <ol class="pasos">
         <li><strong>👤 Cliente</strong>Busca por nombre o DNI, o regístralo ahí mismo. Verás su nivel (🆕 ✅ ⭐ ⛔) y su historial.</li>
@@ -444,10 +552,10 @@
     </div>
   </section>
 
-  <!-- 6 -->
-  <section class="cap" id="s6">
+  <!-- 8 -->
+  <section class="cap" id="s8">
     <div class="card">
-      <div class="cap-head"><div class="num">6</div><h2>Mientras está en la calle</h2></div>
+      <div class="cap-head"><div class="num">8</div><h2>Mientras está en la calle</h2></div>
       <p class="lead">En <strong>🚚 En la calle</strong> ves todos tus equipos alquilados con un semáforo.</p>
       <div class="semaforo">
         <div class="luz l-v"><span class="dot"></span><strong>Verde</strong><p style="margin:6px 0 0">Le quedan 2 días o más. Tranquilo.</p></div>
@@ -471,10 +579,10 @@
     </div>
   </section>
 
-  <!-- 7 -->
-  <section class="cap" id="s7">
+  <!-- 9 -->
+  <section class="cap" id="s9">
     <div class="card">
-      <div class="cap-head"><div class="num">7</div><h2>Devolución y liquidación del depósito</h2></div>
+      <div class="cap-head"><div class="num">9</div><h2>Devolución y liquidación del depósito</h2></div>
       <p class="lead">Cuando el equipo vuelve, abre el alquiler y toca <strong>"Registrar devolución"</strong>.</p>
       <ol class="pasos">
         <li><strong>📷 Fotos de retorno</strong>Toma fotos desde los mismos ángulos que a la salida. El sistema te muestra las de salida para comparar.</li>
@@ -507,10 +615,10 @@
     </div>
   </section>
 
-  <!-- 8 -->
-  <section class="cap" id="s8">
+  <!-- 10 -->
+  <section class="cap" id="s10">
     <div class="card">
-      <div class="cap-head"><div class="num">8</div><h2>Si no devuelve: día por día</h2></div>
+      <div class="cap-head"><div class="num">10</div><h2>Si no devuelve: día por día</h2></div>
       <p class="lead">No improvises. Sigue la escalera. Cada paso deja <strong>pruebas</strong> para el siguiente.</p>
       <ul class="timeline">
         <li><div class="d d0"><b>−1</b>día</div><div class="x"><strong>Un día antes</strong>Recordatorio amable por WhatsApp: "mañana vence tu alquiler".</div></li>
@@ -548,10 +656,10 @@
     </div>
   </section>
 
-  <!-- 9 -->
-  <section class="cap" id="s9">
+  <!-- 11 -->
+  <section class="cap" id="s11">
     <div class="card">
-      <div class="cap-head"><div class="num">9</div><h2>Las 7 estafas más comunes en el Perú</h2></div>
+      <div class="cap-head"><div class="num">11</div><h2>Las 7 estafas más comunes en el Perú</h2></div>
       <p class="lead">Estas son las mañas que más se repiten en el alquiler de equipos. El sistema tiene una traba para cada una.</p>
       <div class="tabla"><table>
         <thead><tr><th>#</th><th>La estafa</th><th>Cómo la bloquea el sistema</th></tr></thead>
@@ -568,10 +676,10 @@
     </div>
   </section>
 
-  <!-- 10 -->
-  <section class="cap" id="s10">
+  <!-- 12 -->
+  <section class="cap" id="s12">
     <div class="card">
-      <div class="cap-head"><div class="num">10</div><h2>Cómo confirmar un pago de verdad</h2></div>
+      <div class="cap-head"><div class="num">12</div><h2>Cómo confirmar un pago de verdad</h2></div>
       <div class="box stop"><span class="t">🛑 Regla de oro</span><p><strong>Una captura de pantalla NO es un pago.</strong> Un pago es real solo cuando lo ves <strong>en tu propia app</strong> de Yape, Plin o del banco.</p></div>
       <p>Hoy existen <strong>apps de "Yape falso"</strong> que generan constancias idénticas a las reales, con sonido y todo. También editan capturas en minutos. Por eso no se mira el celular del cliente: se mira el tuyo.</p>
       <h3>📲 Yape o Plin</h3>
@@ -597,10 +705,10 @@
     </div>
   </section>
 
-  <!-- 11 -->
-  <section class="cap" id="s11">
+  <!-- 13 -->
+  <section class="cap" id="s13">
     <div class="card">
-      <div class="cap-head"><div class="num">11</div><h2>GPS: tipos recomendados y costos</h2></div>
+      <div class="cap-head"><div class="num">13</div><h2>GPS: tipos recomendados y costos</h2></div>
       <p class="lead">El GPS es el <strong>"¿dónde estás?"</strong> que el equipo responde aunque el cliente no conteste.</p>
       <div class="box warn"><span class="t">💲 Precios de referencia</span><p>Los montos son <strong>referenciales</strong> para que tengas una idea. Cotiza con 2 o 3 proveedores locales antes de comprar.</p></div>
       <div class="tabla"><table>
@@ -619,10 +727,10 @@
     </div>
   </section>
 
-  <!-- 12 -->
-  <section class="cap" id="s12">
+  <!-- 14 -->
+  <section class="cap" id="s14">
     <div class="card">
-      <div class="cap-head"><div class="num">12</div><h2>Inventario, QR y marcas ocultas</h2></div>
+      <div class="cap-head"><div class="num">14</div><h2>Inventario, QR y marcas ocultas</h2></div>
       <h3>🔢 Códigos</h3>
       <p>Cada equipo tiene un código corto: <code>KS-GEN-01</code> = Kastor · Generador · número 1. Otros ejemplos: <code>KS-MRT</code> martillos, <code>KS-CMP</code> compresoras, <code>KS-MEZ</code> mezcladoras.</p>
       <h3>🏷️ Etiquetas QR</h3>
@@ -638,15 +746,15 @@
       <ul>
         <li>Registra cada cambio de aceite, filtro, bujía o reparación con su costo.</li>
         <li>Si un equipo vuelve con fallas, envíalo a <strong>"En taller"</strong>: no se podrá alquilar hasta que lo marques disponible.</li>
-        <li>Los costos de mantenimiento de los equipos del inversionista se descuentan de su utilidad (sección 13).</li>
+        <li>Los costos de mantenimiento de los equipos del inversionista se descuentan de su utilidad (sección 15).</li>
       </ul>
     </div>
   </section>
 
-  <!-- 13 -->
-  <section class="cap" id="s13">
+  <!-- 15 -->
+  <section class="cap" id="s15">
     <div class="card">
-      <div class="cap-head"><div class="num">13</div><h2>Tu inversionista</h2></div>
+      <div class="cap-head"><div class="num">15</div><h2>Tu inversionista</h2></div>
       <p class="lead">Tu socio pone máquinas y recibe un <strong>porcentaje de la ganancia neta de SUS máquinas</strong>. Nada más, nada menos.</p>
       <h3>👀 Qué ve</h3>
       <ul>
@@ -681,14 +789,14 @@
         <li><strong>Salida:</strong> cómo retira sus equipos o tú los compras, con cuánto tiempo de aviso.</li>
         <li><strong>Confidencialidad</strong> de los datos de clientes.</li>
       </ul>
-      <div class="box warn"><span class="t">⚠️ Por ahora</span><p>Mientras los datos vivan solo en tu celular (sección 14), el inversionista no puede ver su panel desde su propio teléfono. Muéstraselo en el tuyo o imprímele el estado de cuenta mensual en PDF.</p></div>
+      <div class="box warn"><span class="t">⚠️ Por ahora</span><p>Mientras los datos vivan solo en tu celular (sección 16), el inversionista no puede ver su panel desde su propio teléfono. Muéstraselo en el tuyo o imprímele el estado de cuenta mensual en PDF.</p></div>
     </div>
   </section>
 
-  <!-- 14 -->
-  <section class="cap" id="s14">
+  <!-- 16 -->
+  <section class="cap" id="s16">
     <div class="card">
-      <div class="cap-head"><div class="num">14</div><h2>Respaldo de datos</h2></div>
+      <div class="cap-head"><div class="num">16</div><h2>Respaldo de datos</h2></div>
       <p class="lead">Hoy tus datos viven <strong>dentro del navegador de tu celular</strong>, como las fotos en la galería. Si se borra, se pierde.</p>
       <div class="grid g2">
         <div class="box ok"><span class="t">✅ Haz esto</span>
@@ -720,10 +828,10 @@
     </div>
   </section>
 
-  <!-- 15 -->
-  <section class="cap" id="s15">
+  <!-- 17 -->
+  <section class="cap" id="s17">
     <div class="card">
-      <div class="cap-head"><div class="num">15</div><h2>Checklist diario y semanal</h2></div>
+      <div class="cap-head"><div class="num">17</div><h2>Checklist diario y semanal</h2></div>
       <div class="grid g2">
         <div class="mini">
           <h4>☀️ Cada mañana (5 min)</h4>
@@ -767,10 +875,37 @@
     </div>
   </section>
 
-  <!-- 16 -->
-  <section class="cap" id="s16">
+  <!-- 18 -->
+  <section class="cap" id="s18">
     <div class="card">
-      <div class="cap-head"><div class="num">16</div><h2>Aviso legal</h2></div>
+      <div class="cap-head"><div class="num">18</div><h2>Diccionario rápido</h2></div>
+      <p class="lead">Las palabras que verás en la app, explicadas en una línea.</p>
+      <div class="tabla"><table class="dicc">
+        <thead><tr><th>Palabra</th><th>Qué significa</th></tr></thead>
+        <tbody>
+          <tr><td><strong>🔒 Candado</strong></td><td>La lista de requisitos que el sistema revisa antes de entregar. Mientras haya algo en rojo, el botón "Entregar" no se activa. (Sección 5)</td></tr>
+          <tr><td><strong>💵 Depósito / garantía</strong></td><td>Dinero que el cliente deja al llevarse el equipo. <strong>No es ingreso</strong>: se le devuelve al final, descontando mora, daños o faltantes si los hubo.</td></tr>
+          <tr><td><strong>⏰ Mora</strong></td><td>Lo que se cobra por cada día de atraso en devolver. Es la tarifa diaria × 1.5. (Sección 9)</td></tr>
+          <tr><td><strong>🏷️ Grupo A / B / C</strong></td><td>Clasificación de cada equipo según lo que costaría comprarlo de nuevo. A = barato (hasta S/ 1,500), B = medio, C = caro (más de S/ 6,000). Cuanto más alto el grupo, más protección se exige. (Sección 5)</td></tr>
+          <tr><td><strong>👤 Nivel del cliente</strong></td><td>Cuánto confías en él según su historial: 🆕 Nuevo, ✅ Verificado, ⭐ Frecuente o ⛔ Bloqueado. El nivel Frecuente se gana solo con 3 alquileres sin problemas y paga la mitad de depósito. (Sección 5)</td></tr>
+          <tr><td><strong>⏳ Por confirmar</strong></td><td>Un pago que el cliente dice que hizo pero que <strong>aún no viste en tu propia app</strong> de Yape, Plin o del banco. Mientras esté "por confirmar", no cuenta y el equipo no sale. (Sección 12)</td></tr>
+          <tr><td><strong>🔐 Huella digital del contrato</strong></td><td>Un código único que se calcula con todo el texto del contrato y la firma. Si alguien cambia una sola letra, el código cambia. Es el "sello de lacre" que prueba que nadie lo alteró. (Sección 7)</td></tr>
+          <tr><td><strong>🚨 Incidencia</strong></td><td>Un alquiler con problema: el cliente no devuelve, no contesta o el equipo volvió dañado. Se marca desde el detalle del alquiler y aparece destacado en Inicio. (Sección 10)</td></tr>
+          <tr><td><strong>💾 Respaldo</strong></td><td>Una copia de todos tus datos (equipos, clientes, alquileres, pagos, fotos y ajustes) en un solo archivo. Se descarga desde Ajustes. Si pierdes el celular, con el respaldo recuperas todo. (Sección 16)</td></tr>
+          <tr><td><strong>📝 Borrador</strong></td><td>Un alquiler empezado pero no entregado. Se puede terminar después o anular sin dejar rastro en caja.</td></tr>
+          <tr><td><strong>🚦 Semáforo</strong></td><td>El color de cada alquiler en "En la calle": verde (le quedan 2 días o más), amarillo (vence hoy o mañana), rojo (atrasado). (Sección 8)</td></tr>
+          <tr><td><strong>⛔ Lista negra</strong></td><td>Clientes bloqueados por un problema anterior. El sistema no deja alquilarles, aunque vuelvan meses después. (Sección 6)</td></tr>
+          <tr><td><strong>🛠️ En taller</strong></td><td>Estado de un equipo que está en reparación o mantenimiento. No se puede alquilar hasta que lo marques disponible.</td></tr>
+          <tr><td><strong>💰 Valor de reposición</strong></td><td>Lo que te costaría comprar ese equipo otra vez hoy. De este valor salen el grupo (A, B o C) y el depósito sugerido.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- 19 -->
+  <section class="cap" id="s19">
+    <div class="card">
+      <div class="cap-head"><div class="num">19</div><h2>Aviso legal</h2></div>
       <div class="box warn"><span class="t">⚖️ Revisión con abogado</span><p>El <strong>contrato</strong>, el <strong>acta de devolución</strong> y la <strong>carta notarial</strong> que genera el sistema son <strong>borradores</strong> bien armados, pero no reemplazan a un abogado. Llévalos <strong>una vez</strong> a un abogado peruano para que los revise y ajuste a tu empresa. Después, los usas siempre.</p></div>
       <h3>📚 Normas en las que se apoyan</h3>
       <div class="tabla"><table>
